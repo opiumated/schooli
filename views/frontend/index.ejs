@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Hello, <%= title %></title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/app.css">
+  </head>
+  <body>
+    <main>
+      <nav class="navbar navbar-expand-lg navbar-light bg-inverse">
+        <% include ./partials/navigation.ejs %>
+      </nav>
+
+
+      <div class="jumbotron">
+        <h1 class="display-3">Glad to Have you!!</h1>
+        <p class="lead">Welcome to <b>Skooli</b>, a Student Information System project for the Andela
+          Learning Community (Intermediate Web development). You can perform all CRUD related task.
+          Why not have a go?
+        </p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="#" role="button" style="margin-top: 40px;">Learn more</a>
+        </p>
+     </div>
+    </main>
+
+    <div class="container" style="margin-top: 60px;">
+      <div class="row">
+        <div class="col-sm-12">
+          <table class="col-sm-7 table table-stripped">
+            <thead>
+              <p style="margin-bottom: 40px;">
+                <span style="font-size: 40px;">Students </span>
+                <span class="badge badge-secondary" style="font-size: 20px; margin-top: -12px;">
+                <%= newData.data.length %>
+              </span>
+              </p>
+              <tr>
+                <th></th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Nationality</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <% if(newData.success) { %>
+              <% newData.data.forEach((students, index) => { %>
+                <tbody>
+                  <tr>
+                      <td scope="row">
+                        <p data-letters="<%= `${students.firstName[0]}${students.lastName[0]}` %>"></p>
+                      </td>
+                      <td><%= students.firstName %></td>
+                      <td><%= students.lastName %></td>
+                      <td><%= students.username %></td>
+                      <td><%= students.email %></td>
+                      <td><%= students.nationality %></td>
+                      <td><a href="/account/edit/<%= students.username %>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                      <td><a href="#" class="remove-student" data-username="<%= students.username %>"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                  </tr>
+              <% }); %>
+              </tbody>
+            <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include Modals in another file -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="username" class="form-control-label">Username:</label>
+                <input type="text" class="form-control" name="username" id="username">
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="form-control-label">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" />
+              </div>
+          </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="/scripts/events.js"></script>
+  </body>
+</html>
